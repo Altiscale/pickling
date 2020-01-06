@@ -10,6 +10,7 @@ echo "[INFO] Executing in ${MY_DIR}"
 PACKAGE_NAME=${PACKAGE_NAME:-"scala-pickling"}
 PACKAGE_BRANCH=${PACKAGE_BRANCH:-"0.11.x"}
 BUILD_BRANCH=${BUILD_BRANCH:-"v0.11.x-M1_2.11"}
+ALTISCALE_RELEASE="${ALTISCALE_RELEASE:-5.0.0}"
 
 mkdir -p hack_target
 pushd hack_target
@@ -105,7 +106,7 @@ fpm --verbose \
 -s dir \
 -t rpm \
 -n ${RPM_NAME} \
--v ${BUILD_BRANCH} \
+-v ${ALTISCALE_RELEASE} \
 --iteration ${DATE_STRING} \
 --rpm-user root \
 --rpm-group root \
@@ -120,9 +121,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 echo "---> ${RPM_INSTALL_DIR}/${RPM_NAME}-${BUILD_BRANCH}.noarch.rpm"
-# Have : ./rpm-dir-202001032221/scala-pickling-v0.11.x-M1_2.11-v0.11.x_M1_2.11-202001032221.noarch.rpm
-# Expected : /Users/i849599/Developer/Workspace/pickling/gen/out/src/picklingrpmbuild/pickling-artifact/alti-pickling-0.11.x.rpm
-mv "${RPM_INSTALL_DIR}/${RPM_NAME}-${BUILD_BRANCH}-${DATE_STRING}.noarch.rpm" "${RPM_INSTALL_DIR}/alti-pickling-${PACKAGE_BRANCH}.rpm"
+mv "${RPM_INSTALL_DIR}/${RPM_NAME}-${ALTISCALE_RELEASE}-${DATE_STRING}.noarch.rpm" "${RPM_INSTALL_DIR}/alti-pickling-${PACKAGE_BRANCH}.rpm"
 popd
 
 ls -al $RPM_INSTALL_DIR
@@ -133,3 +132,5 @@ echo "reached here!!"
 echo "ok - build Pickling $PACKAGE_BRANCH and RPM completed successfully!"
 
 exit 0
+
+
