@@ -11,11 +11,6 @@ PACKAGE_BRANCH=${PACKAGE_BRANCH:-"0.11.x"}
 BUILD_BRANCH=${BUILD_BRANCH:-"v0.11.x-M1_2.11"}
 ALTISCALE_RELEASE="${ALTISCALE_RELEASE:-5.0.0}"
 
-mkdir -p hack_target
-pushd hack_target
-rm -rf *.jar
-popd
-
 rm -rf install-dir-*
 rm -rf rpm-dir-*
 
@@ -31,12 +26,6 @@ RPM_INSTALL_DIR=${MY_DIR}/picklingrpmbuild
 echo "RPM_INSTALL_DIR : $RPM_INSTALL_DIR"
 pushd ${MY_DIR}
 
-# pushd ${WORKSPACE}/pickling
-# sbt package
-# ret=$?
-
-# This is a hack to just package the JAR before we can build it correctly
-# hack_target should exist already with the JARs we need
 export RPM_NAME=`echo scala-pickling-${BUILD_BRANCH}`
 export RPM_DESCRIPTION="scala-pickling library ${BUILD_BRANCH}"
 echo "RPM_NAME : $RPM_NAME"
@@ -52,7 +41,6 @@ export RPM_BUILD_DIR="${RPM_INSTALL_DIR}/usr/sap/spark/controller/"
 rm -rf "${RPM_BUILD_DIR}"
 mkdir --mode=0755 -p "${RPM_BUILD_DIR}"
 
-pushd hack_target
 if [[ "$BUILD_BRANCH" == *_2.10 ]] ; then
   mkdir --mode=0755 -p "${RPM_BUILD_DIR}/lib"
   cp -rp /import/scala-pickling_2.10-*.jar $RPM_BUILD_DIR/lib/
@@ -63,7 +51,6 @@ else
   echo "fatal - unsupported version for $BUILD_BRANCH, can't produce RPM, quitting!"
   exit -1
 fi
-popd
 
 mkdir -p "${RPM_BUILD_DIR}/licenses"
 cp LICENSE "${RPM_BUILD_DIR}/licenses/LICENSE-${RPM_NAME}"
