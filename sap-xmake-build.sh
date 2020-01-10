@@ -1,5 +1,4 @@
 #!/bin/bash -l
-echo "Inside file -- sap-xmake-build.sh --"
 
 # find this script and establish base directory
 curr_dir=`dirname $0`
@@ -43,10 +42,10 @@ mkdir --mode=0755 -p "${RPM_BUILD_DIR}"
 
 if [[ "$BUILD_BRANCH" == *_2.10 ]] ; then
   mkdir --mode=0755 -p "${RPM_BUILD_DIR}/lib"
-  cp -rp /import/scala-pickling_2.10-*.jar $RPM_BUILD_DIR/lib/
+  cp -rp /imports/scala-pickling_2.10-*.jar $RPM_BUILD_DIR/lib/
 elif [[ "$BUILD_BRANCH" == *_2.11 ]] ; then
   mkdir --mode=0755 -p "${RPM_BUILD_DIR}/lib_2.11"
-  cp -rp /import/scala-pickling_2.11-*.jar $RPM_BUILD_DIR/lib_2.11/
+  cp -rp /imports/scala-pickling_2.11-*.jar $RPM_BUILD_DIR/lib_2.11/
 else
   echo "fatal - unsupported version for $BUILD_BRANCH, can't produce RPM, quitting!"
   exit -1
