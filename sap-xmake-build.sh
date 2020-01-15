@@ -29,7 +29,7 @@ export RPM_NAME=`echo scala-pickling-${BUILD_BRANCH}`
 export RPM_DESCRIPTION="scala-pickling library ${BUILD_BRANCH}"
 echo "RPM_NAME : $RPM_NAME"
 echo "RPM_DESCRIPTION : $RPM_DESCRIPTION"
-echo "Current directory : ${pwd}"
+echo "Current directory : $(pwd)"
 
 ##################
 # Packaging  RPM #
@@ -53,9 +53,9 @@ fi
 
 mkdir -p "${RPM_BUILD_DIR}/licenses"
 cp LICENSE "${RPM_BUILD_DIR}/licenses/LICENSE-${RPM_NAME}"
-echo "cp successful"
+echo "cp LICENSE $RPM_BUILD_DIR/licenses/LICENSE-$RPM_NAME is successful"
 
-echo "running mkdir for RPM_INSTALL_DIR"
+echo "running mkdir for $RPM_INSTALL_DIR"
 mkdir -p ${RPM_INSTALL_DIR}
 pushd ${RPM_INSTALL_DIR}
 
@@ -92,7 +92,7 @@ fi
 mv "${RPM_INSTALL_DIR}/${RPM_NAME}-${ALTISCALE_RELEASE}-${DATE_STRING}.noarch.rpm" "${RPM_INSTALL_DIR}/alti-pickling-${PACKAGE_BRANCH}.rpm"
 popd
 
-ls -al $RPM_INSTALL_DIR
+ls -al "$RPM_INSTALL_DIR"
 pwd
 find . -name *.rpm -print
 
